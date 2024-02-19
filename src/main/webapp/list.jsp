@@ -32,7 +32,7 @@
             <td>${customer.getAddress()}</td>
             <td>${customer.getEmail()}</td>
             <td>${customer.getPhone()}</td>
-<%--            <td>${customer.getProvince()}</td>--%>
+            <td>${customer.getProvince()}</td>
         </tr>
     </c:forEach>
 </table>
