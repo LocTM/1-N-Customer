@@ -14,13 +14,17 @@
     <title>Customer</title>
 </head>
 <body>
-<table border="1">
-    <tr>Id</tr>
-    <tr>Name</tr>
-    <tr>Address</tr>
-    <tr>Email</tr>
-    <tr>Phone</tr>
-    <tr>Province</tr>
+<h1>CUSTOMER LIST</h1>
+<table border="1px">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Address</td>
+        <td>Email</td>
+        <td>Phone</td>
+        <td>Province</td>
+    </tr>
+
     <c:forEach var="customer" items="${customer}">
         <tr>
             <td>${customer.getId()}</td>
