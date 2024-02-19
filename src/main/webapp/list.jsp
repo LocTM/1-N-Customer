@@ -15,6 +15,7 @@
 </head>
 <body>
 <h1>CUSTOMER LIST</h1>
+<button><a href="/customers?action=create">CREATE NEW CUSTOMER</a></button>
 <table border="1px">
     <tr>
         <td>Id</td>

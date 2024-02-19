@@ -75,4 +75,11 @@ public class Customer {
     public void setProvince(String province) {
         this.province = province;
     }
+
+    public Customer(String name, String address, String email, String phone) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
 }

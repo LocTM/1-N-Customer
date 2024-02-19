@@ -1,7 +1,10 @@
 package controller;
 
+import model.Customer;
 import service.CustomerService;
 import service.ICustomer;
+import service.IProvince;
+import service.ProvinceService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +17,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/customers")
 public class CustomerServlet extends HttpServlet {
     ICustomer iCustomer = new CustomerService();
+    IProvince iProvince = new ProvinceService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String act = req.getParameter("action");
@@ -22,10 +26,23 @@ public class CustomerServlet extends HttpServlet {
         }
         switch (act){
             case "create":
+                showFormCreate(req,resp);
                 break;
             default:
                 showList(req, resp);
                 break;
+        }
+    }
+
+    private void showFormCreate(HttpServletRequest req, HttpServletResponse resp) {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("create.jsp");
+        try {
+            req.setAttribute("provinceList", iProvince.findAll());
+            dispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -43,6 +60,27 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String act = req.getParameter("action");
+        if (act == null){
+            act = "";
+        }
+        switch (act){
+            case "create":
+                createNewCustomer(req,resp);
+                break;
+            default:
+                showList(req, resp);
+                break;
+        }
+    }
 
+    private void createNewCustomer(HttpServletRequest req, HttpServletResponse resp) {
+        String c_name = req.getParameter("name");
+        String c_address = req.getParameter("address");
+        String c_email = req.getParameter("email");
+        String c_phone = req.getParameter("phone");
+        int p_id = Integer.parseInt(req.getParameter("province"));
+        Customer customer = new Customer(c_name,c_address,c_email,c_phone);
+        iCustomer.save(customer, p_id);
     }
 }
